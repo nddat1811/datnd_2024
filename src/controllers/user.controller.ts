@@ -1,5 +1,5 @@
 import axios from "axios";
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import { User } from "../models";
 import { hashPassword } from "../helpers/hashPassword";
 import { returnResponse } from "../helpers/response";
@@ -15,7 +15,6 @@ import {
 } from "../helpers/constant";
 import * as bcrypt from "bcrypt";
 import jwt, { JwtPayload, SignOptions } from "jsonwebtoken";
-import { RequestWithUser } from "../middlewares/authorized";
 
 export interface IUser {
   id: string;

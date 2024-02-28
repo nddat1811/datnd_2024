@@ -14,29 +14,3 @@ export const ERROR_INTERNAL_SERVER = 500;
 
 // Page
 export const PAGE_SIZE_DEFAULT = 10;
-
-//role
-export enum UserRole {
-  USER = "USER",
-  ADMIN = "ADMIN",
-}
-
-
-//indexProductName
-export const INDEX_PRODUCT_NAME = "products"
-
-//role
-export enum UserGender {
-  MALE = "NAM",
-  FEMALE = "NỮ",
-  DIFF = ""
-}
-//status
-export enum OrderStatus {
-  WAIT_PAYMENT = "Chờ thanh toán",
-  WAIT_DELIVER = "Chờ vận chuyển",
-  DELIVER = "Vận chuyển",
-  FINISHED = "Hoàn thành",
-  CANCELED = "Đã hủy",
-  REFUND = "Trả hàng/hoàn tiền"
-}

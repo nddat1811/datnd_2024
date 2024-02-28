@@ -1,5 +1,5 @@
 import axios from "axios";
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import { Post, User } from "../models";
 import { returnPagingResponse, returnResponse } from "../helpers/response";
 import {
@@ -11,7 +11,6 @@ import {
   ERROR_NOT_FOUND,
 } from "../helpers/constant";
 import { calcPagination } from "../helpers/paging";
-import { RequestWithUser } from "../middlewares/authorized";
 
 // [GET] api from JSONplaceholder and save to DB
 const fetchAPIPostDB = async (req: Request, res: Response): Promise<void> => {

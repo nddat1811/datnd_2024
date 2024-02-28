@@ -1,5 +1,5 @@
 import axios from "axios";
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import { Comment, Post, User } from "../models";
 import {
   CODE_CREATED_SUCCESS,
@@ -12,7 +12,6 @@ import {
 } from "../helpers/constant";
 import { returnPagingResponse, returnResponse } from "../helpers/response";
 import { calcPagination } from "../helpers/paging";
-import { RequestWithUser } from "../middlewares/authorized";
 //interface comment
 interface IComment {
   postId: number;
