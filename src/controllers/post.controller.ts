@@ -64,10 +64,10 @@ const getAllPosts = async (req: Request, res: Response): Promise<void> => {
     if (title) {
       query = {
         title: { $regex: title, $options: "i" },
-        deleteAt: null,
+        deletedAt: null,
       };
     } else {
-      query = { deleteAt: null };
+      query = { deletedAt: null };
     }
 
     const total = await Post.countDocuments(query);
@@ -115,10 +115,10 @@ const getAllMyPosts = async (req: Request, res: Response): Promise<void> => {
       query = {
         title: { $regex: title, $options: "i" },
         userId: userId,
-        deleteAt: null,
+        deletedAt: null,
       };
     } else {
-      query = { deleteAt: null };
+      query = { deletedAt: null };
     }
 
     const total = await Post.countDocuments(query);
@@ -152,7 +152,7 @@ const getPostById = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
-    const post = await Post.findOne({ _id: id, deleteAt: null }).populate(
+    const post = await Post.findOne({ _id: id, deletedAt: null }).populate(
       "userId"
     );
     if (!post) {
@@ -180,7 +180,7 @@ const createPost = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    const isExist = await Post.findOne({ title, deleteAt: null });
+    const isExist = await Post.findOne({ title, deletedAt: null });
     if (isExist) {
       res
         .status(ERROR_CONFLICT)
@@ -223,7 +223,7 @@ const updatePost = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    const post = await Post.findOne({ _id: id, deleteAt: null });
+    const post = await Post.findOne({ _id: id, deletedAt: null });
     if (!post) {
       res
         .status(ERROR_NOT_FOUND)
@@ -235,12 +235,12 @@ const updatePost = async (req: Request, res: Response): Promise<void> => {
       return;
     }
     if (flag === true) {
-      post.deleteAt = new Date(); //if delete --> update flag
+      post.deletedAt = new Date(); //if delete --> update flag
     } else {
       const isExistTitle = await Post.findOne({
         title,
         _id: { $ne: id },
-        deleteAt: null,
+        deletedAt: null,
       });
       if (isExistTitle) {
         res

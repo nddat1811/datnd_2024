@@ -33,7 +33,7 @@ const fetchAPICommentDB = async (
       comments.map(async (comment) => {
         const post = await Post.findOne({
           jsonId: comment.postId,
-          deleteAt: null,
+          deletedAt: null,
         });
 
         if (!post) {

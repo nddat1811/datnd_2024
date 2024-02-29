@@ -70,7 +70,7 @@ const userSchema = new Schema(
       default:
         "https://bloganchoi.com/wp-content/uploads/2022/02/avatar-trang-y-nghia.jpeg",
     },
-    deleteAt: {
+    deletedAt: {
       type: Date,
       default: null,
     },

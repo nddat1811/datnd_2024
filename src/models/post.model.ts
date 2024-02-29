@@ -15,7 +15,7 @@ const postSchema = new Schema(
     body: {
       type: String,
     },
-    deleteAt: {
+    deletedAt: {
       type: Date,
       default: null,
     },
