@@ -13,4 +13,4 @@ export const ERROR_CONFLICT = 409;
 export const ERROR_INTERNAL_SERVER = 500;
 
 // Page
-export const PAGE_SIZE_DEFAULT = 10;
+export const PAGE_SIZE_DEFAULT = 100;

@@ -1,43 +1,43 @@
 interface MyResponse<T> {
-  Message: string;
+  message: string;
   data: T;
 }
 
 interface PageInfo<T> {
-  Total: number;
-  CurrentTotal: number;
-  CurrentPage: number;
+  total: number;
+  currenttotal: number;
+  currentPage: number;
   data: T;
 }
 
 interface PagingResponse<T> {
-  Message: string;
+  message: string;
   data: PageInfo<T>;
 }
 
 function returnPagingResponse<T>(
-  Message: string,
-  Total: number,
-  CurrentTotal: number,
-  CurrentPage: number,
+  message: string,
+  total: number,
+  currenttotal: number,
+  currentPage: number,
   data: T
 ): PagingResponse<T> {
   return {
-    Message,
+    message,
     data: {
-      Total,
-      CurrentTotal,
-      CurrentPage,
+      total,
+      currenttotal,
+      currentPage,
       data,
     },
   };
 }
 
 function returnResponse<T>(
-  Message: string,
+  message: string,
   data: T
 ): MyResponse<T> {
-  return { Message, data };
+  return { message, data };
 }
 
 export { returnResponse, returnPagingResponse };

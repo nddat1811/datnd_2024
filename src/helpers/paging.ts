@@ -2,7 +2,7 @@ import { PAGE_SIZE_DEFAULT } from "./constant";
 
 // utils.ts
 function getPageSize(pageSize: number): number {
-  if (pageSize < 1 || pageSize > 20) {
+  if (pageSize < 1 || pageSize > 100) {
     return PAGE_SIZE_DEFAULT;
   }
   return pageSize;
