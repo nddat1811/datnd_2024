@@ -34,9 +34,7 @@ export const isAuthenticated = async (
     if (!userId) {
       throw new Error("User ID is not exist");
     }
-
-    //@ts-ignore
-    req.userId = decoded.sub;
+    req.body.user = decoded.sub;
     next();
   } catch (err) {
     return res

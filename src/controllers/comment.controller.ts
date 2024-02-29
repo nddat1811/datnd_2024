@@ -126,8 +126,7 @@ const getCommentById = async (req: Request, res: Response): Promise<void> => {
 // [POST] create comment
 const createComment = async (req: Request, res: Response): Promise<void> => {
   const { postId, body } = req.body;
-  //@ts-ignore
-  const userId = req.userId
+  const userId = req.body.user;
 
   try {
     const userData = await User.findById(userId);
@@ -155,8 +154,7 @@ const createComment = async (req: Request, res: Response): Promise<void> => {
 
 // [PUT] update comment
 const updateComment = async (req: Request, res: Response): Promise<void> => {
-  //@ts-ignore
-  const userId = req.userId; 
+  const userId = req.body.user;
   const { id } = req.params;
   const { body } = req.body;
   
@@ -193,8 +191,7 @@ const updateComment = async (req: Request, res: Response): Promise<void> => {
 // [DEL] delete comment
 const deleteComment = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
-  //@ts-ignore
-  const userId = req.userId; 
+  const userId = req.body.user; 
 
   try {
     const user = await User.findById(userId);

@@ -1,18 +1,18 @@
 interface MyResponse<T> {
   Message: string;
-  Data: T;
+  data: T;
 }
 
 interface PageInfo<T> {
   Total: number;
   CurrentTotal: number;
   CurrentPage: number;
-  Data: T;
+  data: T;
 }
 
 interface PagingResponse<T> {
   Message: string;
-  Data: PageInfo<T>;
+  data: PageInfo<T>;
 }
 
 function returnPagingResponse<T>(
@@ -20,24 +20,24 @@ function returnPagingResponse<T>(
   Total: number,
   CurrentTotal: number,
   CurrentPage: number,
-  Data: T
+  data: T
 ): PagingResponse<T> {
   return {
     Message,
-    Data: {
+    data: {
       Total,
       CurrentTotal,
       CurrentPage,
-      Data,
+      data,
     },
   };
 }
 
 function returnResponse<T>(
   Message: string,
-  Data: T
+  data: T
 ): MyResponse<T> {
-  return { Message, Data };
+  return { Message, data };
 }
 
 export { returnResponse, returnPagingResponse };

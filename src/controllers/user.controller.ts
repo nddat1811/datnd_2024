@@ -111,11 +111,10 @@ const getUserById = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-// //[GET] current user info
+// [GET] current user info
 const getProfile = async (req: Request, res: Response): Promise<void> => {
   try {
-    //@ts-ignore
-    const userId = req.userId; 
+    const userId = req.body.user; 
     if (!userId) {
       res.status(ERROR_UNAUTHORIZED).send("Unauthorized");
       return;
@@ -139,8 +138,7 @@ const getProfile = async (req: Request, res: Response): Promise<void> => {
 const updateUser = async (req: Request, res: Response): Promise<void> => {
   const userIdParam = req.params.id;
   const { delete: flag, ...userData } = req.body;
-  //@ts-ignore
-  const userId = req.userId;
+  const userId = req.body.user;
 
   try {
     const user = await User.findOne({ _id: userIdParam, deletedAt: null });

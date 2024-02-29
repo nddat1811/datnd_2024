@@ -96,6 +96,57 @@ const getAllPosts = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+// [GET] all my post
+const getAllMyPosts = async (req: Request, res: Response): Promise<void> => {
+  const page = parseInt(req.query.page as string) || 1;
+  const pageSize = parseInt(req.query.pageSize as string) || 10;
+  const title = req.query.title as string;
+  const userId = req.body.user;
+
+  try {
+    if (!userId) {
+      res.status(ERROR_FORBIDDEN).send("Please login to use this function");
+      return;
+    }
+    const { offset, limit } = calcPagination(page, pageSize);
+    let query = {};
+
+    if (title) {
+      query = {
+        title: { $regex: title, $options: "i" },
+        userId: userId,
+        deleteAt: null,
+      };
+    } else {
+      query = { deleteAt: null };
+    }
+
+    const total = await Post.countDocuments(query);
+    const currentPage = Math.ceil((offset + 1) / limit);
+
+    const posts = await Post.find(query)
+      .skip(offset)
+      .limit(limit)
+      .populate("userId")
+      .sort({ createdAt: -1 });
+    const currentTotal = posts.length;
+
+    res
+      .status(CODE_SUCCESS)
+      .send(
+        returnPagingResponse(
+          "Get Posts successfully",
+          total,
+          currentTotal,
+          currentPage,
+          posts
+        )
+      );
+  } catch (error) {
+    res.status(500).send(`Internal Server Error ${error}`);
+  }
+};
+
 // [GET] post by id
 const getPostById = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -121,8 +172,7 @@ const getPostById = async (req: Request, res: Response) => {
 // [POST] create post
 const createPost = async (req: Request, res: Response): Promise<void> => {
   const { title, body } = req.body;
-  //@ts-ignore
-  const userId = req.userId;
+  const userId = req.body.user;
 
   try {
     if (!userId) {
@@ -165,8 +215,7 @@ const createPost = async (req: Request, res: Response): Promise<void> => {
 const updatePost = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
   const { title, body, delete: flag } = req.body;
-  //@ts-ignore
-  const userId = req.userId;
+  const userId = req.body.user;
 
   try {
     if (!userId) {
@@ -212,4 +261,11 @@ const updatePost = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export { updatePost, createPost, getPostById, getAllPosts, fetchAPIPostDB };
+export {
+  updatePost,
+  createPost,
+  getPostById,
+  getAllPosts,
+  fetchAPIPostDB,
+  getAllMyPosts,
+};
